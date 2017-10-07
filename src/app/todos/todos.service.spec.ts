@@ -243,4 +243,18 @@ describe('Todos Service', () => {
         expect(actualResult).toBeTruthy();
         expect(item.name).toBe('Name 2');
     });
+
+    it('clear should remove all items', () => {
+        // arrange
+        this.service.add({id: 0, name: 'Name 1'});
+        let actualCount = this.service.get().length;
+        let expectedCount = 0;
+
+        // act
+        this.service.clear();
+        actualCount = this.service.get().length;
+
+        // assert
+        expect(actualCount).toBe(expectedCount);
+    })
 });

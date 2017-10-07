@@ -54,4 +54,8 @@ export class TodosService {
         }
         return false;
     }
+
+    public clear() {
+        this.items = [];
+    }
 }
