@@ -29,6 +29,8 @@ describe('PageNotFoundComponent', () => {
     paragraph = de.nativeElement;
   });
 
+  it('should create component', () => expect(componentInstance).toBeDefined());
+  
   it("should display title", () => {
     fixture.detectChanges();
     expect(header.textContent).toContain(componentInstance.title);
