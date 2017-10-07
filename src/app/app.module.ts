@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 // components
 import { AppComponent } from './app.component';
 import { FooterComponent } from "./shared/footer/footer.component";
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 // other
 
 
