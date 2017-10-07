@@ -9,13 +9,47 @@ export class TodosService {
         this.items = new Array<Item>();
     }
 
-    public getItems(): Item[] {
+    public get(): Item[] {
         return this.items;
     }
 
-    public addItem(newItem: Item): boolean {
+    public getById(id: number): Item {
+        let item = this.items.find(item => item.id === id);
+        return item ? item : null;
+    }
+
+    public add(newItem: Item): boolean {
         if(newItem) {
             this.items.push(newItem);
+            return true;
+        }
+        return false;
+    }
+
+    public remove(item: Item): boolean {
+        if(item) {
+            let itemIndex = this.items.findIndex(i => i.id === item.id);
+            if(itemIndex !== -1) {
+                this.items.splice(itemIndex, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public markAsDone(id: number): boolean {
+        let item = this.items.find(item => item.id === id);
+        if(item) {
+            // TODO: mark as done
+            return true;
+        }
+        return false;
+    }
+
+    public edit(item: Item): boolean {
+        let itemToEdit = this.items.find(i => i.id === item.id);
+        if(itemToEdit) {
+            itemToEdit.name = item.name;
             return true;
         }
         return false;
