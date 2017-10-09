@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 // modules
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
+import { TodosModule } from "./todos/todos.module";
 // components
 import { AppComponent } from './app.component';
 // other
@@ -16,7 +17,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    TodosModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
