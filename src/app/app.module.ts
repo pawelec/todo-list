@@ -3,22 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // modules
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 // components
 import { AppComponent } from './app.component';
-import { FooterComponent } from "./shared/footer/footer.component";
-import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 // other
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FooterComponent,
-    PageNotFoundComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
