@@ -1,16 +1,19 @@
 import { NgModule } from "@angular/core";
 
+import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from "./footer/footer.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 @NgModule({
     declarations: [
-        FooterComponent,
-        PageNotFoundComponent
-    ], 
+      HeaderComponent,
+      FooterComponent,
+      PageNotFoundComponent
+    ],
     exports: [
-        FooterComponent, 
-        PageNotFoundComponent
+      HeaderComponent,
+      FooterComponent,
+      PageNotFoundComponent
     ]
 })
 
