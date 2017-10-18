@@ -12,9 +12,7 @@ export class TodosComponent {
   thingsToDo: Item[];
 
   constructor() {
-    this.thingsToDo = [{
-      name: 'Item1', id: 1, created: new Date()
-    }];
+    this.thingsToDo = [];
   }
 
   onThingAdded(thingToDo: string) {
