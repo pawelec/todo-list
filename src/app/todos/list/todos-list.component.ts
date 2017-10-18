@@ -1,5 +1,7 @@
 // angular
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input } from "@angular/core";
+// models
+import { Item } from "../models/item";
 
 @Component({
     selector: 'todos-list',
@@ -7,5 +9,5 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 
 export class TodosListComponent {
-    
+    @Input() thingsToDo: Item[];
 }
