@@ -1,5 +1,6 @@
 // angular
 import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 // components
 import { TodosComponent } from "./todos.component";
 import { TodosInputComponent } from "./input/todos-input.component";
@@ -7,6 +8,9 @@ import { TodosInputComponent } from "./input/todos-input.component";
 import { TodosService } from "./todos.service";
 
 @NgModule({
+  imports: [
+    ReactiveFormsModule
+  ],
   declarations: [
     TodosComponent,
     TodosInputComponent
