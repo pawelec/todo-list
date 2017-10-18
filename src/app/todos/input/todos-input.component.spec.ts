@@ -1,7 +1,9 @@
 import { TestBed, ComponentFixture, async } from "@angular/core/testing";
+import { NO_ERRORS_SCHEMA }          from '@angular/core';
 import { By }              from '@angular/platform-browser';
 import { DebugElement }    from '@angular/core';
 import { TodosInputComponent } from './todos-input.component';
+import { FormBuilder } from '@angular/forms';
 
 describe('TodosInputComponent', function () {
     let component: TodosInputComponent;
@@ -9,7 +11,9 @@ describe('TodosInputComponent', function () {
 
     beforeEach(async() => {
         TestBed.configureTestingModule({
-            declarations: [ TodosInputComponent ]
+            declarations: [ TodosInputComponent ],
+            providers: [ FormBuilder ], 
+            schemas: [ NO_ERRORS_SCHEMA ]
         })
         .compileComponents();
     });
@@ -28,6 +32,6 @@ describe('TodosInputComponent', function () {
 
     it('input placeholder should be "enter thing to do"', () => {
         let inputControl = fixture.debugElement.query(By.css('input')).nativeElement;
-        expect(inputControl.placeholder).toBe(component.inputPlaceholder);        
+        expect(inputControl.placeholder).toBe('enter thing to do');        
     });
 });
