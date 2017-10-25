@@ -1,6 +1,6 @@
 // angular
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { FormGroup ,FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'todos-input',
@@ -21,7 +21,7 @@ export class TodosInputComponent implements OnInit {
     }
 
     onSubmit(): boolean {
-        if(this.form.invalid) {
+        if (this.form.invalid) {
             return false;
         }
 
