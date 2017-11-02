@@ -20,7 +20,8 @@ export class TodosComponent {
     this.thingsToDo.push({
       id: 0,
       name: thingToDo,
-      created: new Date()
+      created: new Date(),
+      isDone: false
     });
   }
 }

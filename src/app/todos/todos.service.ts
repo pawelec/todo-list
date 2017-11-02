@@ -40,7 +40,7 @@ export class TodosService {
     public markAsDone(id: number): boolean {
         let item = this.items.find(item => item.id === id);
         if(item) {
-            // TODO: mark as done
+            item.isDone = true;
             return true;
         }
         return false;
