@@ -1,5 +1,5 @@
 <div class="list-group">
-    <div class="list-group-item list-group-item-action flex-column align-items-start" 
+    <div class="list-group-item list-group-item-action flex-column align-items-start" [style.background-color]="thingToDo.isDone ? 'green' : 'none'" 
         data-toggle="tooltip" data-placement="top" title="Click to mark as done"
         *ngFor="let thingToDo of thingsToDo">
         <div (click)="click(thingToDo)" class="d-flex w-100 justify-content-between">
