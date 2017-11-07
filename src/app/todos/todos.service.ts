@@ -4,9 +4,11 @@ import { Item } from './models/item';
 @Injectable()
 export class TodosService {
     private items: Item[];
+    private lastItemId: number;
 
     constructor() {
         this.items = new Array<Item>();
+        this.lastItemId = -1;
     }
 
     public get(): Item[] {
@@ -18,9 +20,15 @@ export class TodosService {
         return item ? item : null;
     }
 
-    public add(newItem: Item): boolean {
-        if(newItem) {
-            this.items.push(newItem);
+    public add(name: string): boolean {
+        if(name) {
+            this.lastItemId++;
+            this.items.push({
+                id: this.lastItemId,
+                name: name,
+                created: new Date(),
+                isDone: false
+            });
             return true;
         }
         return false;
@@ -57,5 +65,6 @@ export class TodosService {
 
     public clear() {
         this.items = [];
+        this.lastItemId = -1;
     }
 }

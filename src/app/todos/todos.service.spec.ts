@@ -60,22 +60,22 @@ describe('Todos Service', () => {
 
     it('get item by id if exist should return item', () => {
         // arrange
-        let itemId = 0;
-        this.service.add({id: 0, name: 'Test'});
+        let name = 'Test 1';
+        this.service.add(name);
         let item: Item;
 
         // act
-        item = this.service.getById(itemId);
+        item = this.service.getById(0);
 
         // assert
         expect(item).toBeDefined();
-        expect(item.id).toBe(itemId);
+        expect(item.id).toBe(0);
     });
 
     // add
-    it('add undefined item should return false', () => {
+    it('add undefined should return false', () => {
         // arrange
-        let newItem: Item = undefined;
+        let newItem: string = undefined;
         let addItemResult: boolean;
         let expectedItemsCount = this.service.get().length;
         let actualItemsCount: number;        
@@ -91,7 +91,7 @@ describe('Todos Service', () => {
 
     it('add null item should return false', () => {
          // arrange
-         let newItem: Item = null;
+         let newItem: string = null;
          let addItemResult: boolean;
          let expectedItemsCount = this.service.get().length;
          let actualItemsCount: number;
@@ -107,7 +107,7 @@ describe('Todos Service', () => {
 
     it('add valid item should return true', () => {
          // arrange
-         let newItem: Item = { id: 1, name: 'Test name', created: new Date(),  isDone: false };
+         let newItem: string = 'Test 1'
          let addItemResult: boolean;
          let expectedItemsCount = this.service.get().length;
          let actualItemsCount: number;
@@ -126,7 +126,7 @@ describe('Todos Service', () => {
         // arrange
         let itemToRemove: Item = undefined;
         let operationResult: boolean;
-        this.service.add({name: 'Item to delete'});
+        this.service.add('Item to delete');
         let expectedItemsCount = this.service.get().length;
         let actualItemsCount: number;
 
@@ -143,7 +143,7 @@ describe('Todos Service', () => {
         // arrange
         let itemToRemove: Item = null;
         let operationResult: boolean;
-        this.service.add({name: 'Item to delete'});
+        this.service.add('Item to delete');
         let expectedItemsCount = this.service.get().length;
         let actualItemsCount: number;
 
@@ -158,14 +158,13 @@ describe('Todos Service', () => {
 
     it('remove item that is not in collection should return false', () => {
         // arrange
-        let itemToRemove: Item = {id: 1, name: 'Item0',  created: new Date(),  isDone: false};
-        let operationResult: boolean;
-        this.service.add({name: 'Item1'});
+        this.service.add('Item1');
         let expectedItemsCount = this.service.get().length;
         let actualItemsCount: number;
+        let operationResult: boolean;
 
         // act
-        operationResult = this.service.remove(itemToRemove);
+        operationResult = this.service.remove({id: 5, name: 'false'});
         actualItemsCount = this.service.get().length;
 
         // assert
@@ -175,13 +174,13 @@ describe('Todos Service', () => {
 
     it('remove item that is in collection should return true', () => {
         // arrange
-        let item: Item = {id: 1, name: 'Item',  created: new Date(),  isDone: false};
-        this.service.add(item);
+        this.service.add('Name 1');
         let startItemsCount = this.service.get().length;
         let operationResult: boolean;
         let actualItemsCount: number;
 
         // act
+        let item = this.service.getById(0);
         operationResult = this.service.remove(item);
         actualItemsCount = this.service.get().length;
 
@@ -207,11 +206,12 @@ describe('Todos Service', () => {
         // arrange
         let itemId = 0;
         let actualResult: boolean;
-        this.service.add({id: 0, name: 'Test',  created: new Date(), isDone: false});
-  
+        this.service.add('Name 1');
+
         // act
         actualResult = this.service.markAsDone(itemId);
         let item = this.service.getById(itemId);
+        
         // assert
         expect(actualResult).toBeTruthy();
         expect(item.isDone).toBeTruthy();
@@ -219,11 +219,11 @@ describe('Todos Service', () => {
 
     it('edit if item do not exist should return false', () => {
         // arrange
-        let item: Item = { id: 0, name: 'Name 1',  created: new Date(), isDone: false};
-        this.service.add(item);
+        this.service.add('Name 1');
         let actualResult: boolean;
 
         // act
+        let item = this.service.getById(0);
         actualResult = this.service.edit({id: 1, name: 'Name 2'});
 
         // assert
@@ -233,12 +233,13 @@ describe('Todos Service', () => {
 
     it('edit if item do exist should update and return true', () => {
         // arrange
-        let item: Item = { id: 0, name: 'Name 1',  created: new Date(),  isDone: false};
-        this.service.add(item);
+        this.service.add('Name 1');
         let actualResult: boolean;
 
         // act
-        actualResult = this.service.edit({id: 0, name: 'Name 2'});
+        let item = this.service.getById(0);
+        item.name = "Name 2";
+        actualResult = this.service.edit(item);
 
         // assert
         expect(actualResult).toBeTruthy();
@@ -247,11 +248,11 @@ describe('Todos Service', () => {
 
     it('clear should remove all items', () => {
         // arrange
-        this.service.add({id: 0, name: 'Name 1',  created: new Date(),  isDone: false});
-        let actualCount = this.service.get().length;
+        this.service.add('Name 1');
         let expectedCount = 0;
 
         // act
+        let actualCount = this.service.get().length;
         this.service.clear();
         actualCount = this.service.get().length;
 
