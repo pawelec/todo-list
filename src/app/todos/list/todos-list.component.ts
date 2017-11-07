@@ -1,5 +1,5 @@
 // angular
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 // models
 import { Item } from "../models/item";
 
@@ -10,4 +10,9 @@ import { Item } from "../models/item";
 
 export class TodosListComponent {
     @Input() thingsToDo: Item[];
+    @Output() onItemClicked = new EventEmitter<Item>();
+
+    click(thingToDo: Item) {
+        this.onItemClicked.emit(thingToDo);
+    }
 }

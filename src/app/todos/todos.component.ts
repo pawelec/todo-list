@@ -16,12 +16,15 @@ export class TodosComponent {
   }
 
   onThingAdded(thingToDo: string) {
-    console.log(thingToDo);
     this.thingsToDo.push({
       id: 0,
       name: thingToDo,
       created: new Date(),
       isDone: false
     });
+  }
+
+  onItemClicked(thingToDo: Item) {
+    console.log(thingToDo);
   }
 }

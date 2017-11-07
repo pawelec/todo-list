@@ -2,7 +2,7 @@
     <div class="list-group-item list-group-item-action flex-column align-items-start" 
         data-toggle="tooltip" data-placement="top" title="Click to mark as done"
         *ngFor="let thingToDo of thingsToDo">
-        <div class="d-flex w-100 justify-content-between">
+        <div (click)="click(thingToDo)" class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{thingToDo.name}}</h5>
             <small>{{thingToDo.created | date}}</small>
         </div>
