@@ -3,6 +3,7 @@ import { TodosComponent } from './todos.component';
 import { TodosInputComponent } from './input/todos-input.component';
 import { TestBed, ComponentFixture, async } from "@angular/core/testing";
 import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TodosService } from "./todos.service";
 
 describe('TodosComponent', function () {
     let component: TodosComponent;
@@ -12,7 +13,7 @@ describe('TodosComponent', function () {
         TestBed.configureTestingModule({
             imports: [ReactiveFormsModule, FormsModule],
             declarations: [ TodosComponent, TodosInputComponent, TodosListComponent ],
-            providers: [ FormBuilder ],
+            providers: [ FormBuilder, TodosService ],
         })
         .compileComponents();
     });

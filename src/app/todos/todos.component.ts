@@ -1,5 +1,7 @@
 // angular
 import { Component } from "@angular/core";
+// services
+import { TodosService } from "./todos.service"; 
 // models
 import { Item } from "./models/item";
 
@@ -11,20 +13,15 @@ import { Item } from "./models/item";
 export class TodosComponent {
   thingsToDo: Item[];
 
-  constructor() {
-    this.thingsToDo = [];
+  constructor(private  todosService: TodosService) {
+    this.thingsToDo = this.todosService.get();
   }
 
   onThingAdded(thingToDo: string) {
-    this.thingsToDo.push({
-      id: 0,
-      name: thingToDo,
-      created: new Date(),
-      isDone: false
-    });
+    this.todosService.add(thingToDo);
   }
 
   onItemClicked(thingToDo: Item) {
-    console.log(thingToDo);
+    this.todosService.markAsDone(thingToDo.id);
   }
 }
