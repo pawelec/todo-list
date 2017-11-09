@@ -5,7 +5,8 @@ import { Item } from "../models/item";
 
 @Component({
     selector: 'todos-list',
-    templateUrl: './todos-list.component.html'
+    templateUrl: './todos-list.component.html',
+    styleUrls: ['./todos-list.component.css']
 })
 
 export class TodosListComponent {

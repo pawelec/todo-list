@@ -1,0 +1,14 @@
+.list-group-item.item-done {
+  background-color: #f5f5f5;
+  position: relative;
+}
+
+.item-done:before {
+background: green;
+content: '';
+display: block;
+position: absolute;
+top: 50%;
+height: 1px;
+width: calc(100% - 40px);
+}
