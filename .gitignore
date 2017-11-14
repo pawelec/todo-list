@@ -347,3 +347,4 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+/TodoList.Web/dist/out-tsc
