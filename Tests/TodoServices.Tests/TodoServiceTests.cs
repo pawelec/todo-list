@@ -1,4 +1,6 @@
+using Shouldly;
 using System;
+using TodoList.Services;
 using Xunit;
 
 namespace TodoServices.Tests
@@ -7,12 +9,27 @@ namespace TodoServices.Tests
     {
         [Fact]
         internal void Add_NullAsName_ShouldThrowArgumentNullException()
-    {
-      // Arrange
+        {
+          // Arrange
+          IToDoService service = new TodoService();
+          string newItemName = null;
 
-      // Act
+          // Act & Assert
+          Action action = () => service.Add(newItemName);
+          action.ShouldThrow<ArgumentNullException>();
+        }
 
-      // Assert
-    }
-    }
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        internal void Add_NameIsEmptyOrWhitespace_ShouldThrowArgumentException(string newItemName)
+        {
+          // Arrange
+          IToDoService service = new TodoService();
+
+          // Act & Assert
+          Action action = () => service.Add(newItemName);
+          action.ShouldThrow<ArgumentException>();
+        }
+  }
 }
