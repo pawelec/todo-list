@@ -8,6 +8,31 @@ namespace TodoServices.Tests
     public class TodoServiceTests
     {
         [Fact]
+        internal void Get_ByIdThatDoNotExist_ShouldReturnNull()
+    {
+      int todoId = 5;
+      TodoItem item = null;
+      var service = new TodoService();
+
+      item = service.Get(todoId);
+
+      item.ShouldBeNull();
+    }
+
+    [Fact]
+    internal void Get_ByIdThatExist_ShouldReturnObject()
+    {
+      int todoId = 1;
+      TodoItem item = null;
+      var service = new TodoService();
+
+      item = service.Get(todoId);
+
+      item.ShouldNotBeNull();
+      item.Id.ShouldBe(todoId);
+    }
+
+    [Fact]
         internal void Add_NullAsName_ShouldThrowArgumentNullException()
         {
           // Arrange
