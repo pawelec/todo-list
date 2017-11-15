@@ -41,6 +41,14 @@ namespace TodoServices.Tests
       item.Id.ShouldBe(todoId);
     }
 
+    [Fact] // TODO: It violates the BDD
+    internal void Get_EmptyCollection_ShouldReturnEmptyList()
+    {
+      var todoItems = todoService.Get();
+      todoItems.ShouldNotBeNull();
+      todoItems.ShouldNotBeEmpty();
+    }
+
     [Fact]
     internal void Add_NullAsName_ShouldThrowArgumentNullException()
     {

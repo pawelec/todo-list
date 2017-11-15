@@ -27,5 +27,10 @@ namespace TodoList.Services
     }
 
     public TodoItem Get(int id) => this.todos.FirstOrDefault(todoItem => todoItem.Id == id);
+
+    public IEnumerable<TodoItem> Get()
+    {
+      throw new NotImplementedException();
+    }
   }
 }
