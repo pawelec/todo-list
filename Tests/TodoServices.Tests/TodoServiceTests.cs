@@ -5,9 +5,8 @@ using Xunit;
 
 namespace TodoServices.Tests
 {
-    public class TodoServiceTests : IClassFixture<TodoService>
-    {
-
+  public class TodoServiceTests : IClassFixture<TodoService>
+  {
     private readonly IToDoService todoService;
 
     public TodoServiceTests(TodoService todoService)
@@ -15,47 +14,52 @@ namespace TodoServices.Tests
       this.todoService = todoService;
     }
 
-        [Fact]
-        internal void Get_ByIdThatDoNotExist_ShouldReturnNull()
+    [Fact]
+    internal void Get_ByIdThatDoNotExist_ShouldReturnNull()
     {
+      // Arrange
       int todoId = 5;
-      TodoItem item = null;
 
-      item = todoService.Get(todoId);
+      // Act
+      var item = todoService.Get(todoId);
 
+      // Assert
       item.ShouldBeNull();
     }
 
     [Fact]
     internal void Get_ByIdThatExist_ShouldReturnObject()
     {
+      // Arrange
       int todoId = 1;
-      TodoItem item = null;
 
-      item = todoService.Get(todoId);
+      // Act
+      var item = todoService.Get(todoId);
 
+      // Assert
       item.ShouldNotBeNull();
       item.Id.ShouldBe(todoId);
     }
 
     [Fact]
-        internal void Add_NullAsName_ShouldThrowArgumentNullException()
-        {
-          // Arrange
-          string newItemName = null;
+    internal void Add_NullAsName_ShouldThrowArgumentNullException()
+    {
+      // Arrange
+      string newItemName = null;
 
-          // Act & Assert
-          Action action = () => todoService.Add(newItemName);
-          action.ShouldThrow<ArgumentNullException>();
-        }
+      // Act & Assert
+      Action action = () => todoService.Add(newItemName);
+      action.ShouldThrow<ArgumentNullException>();
+    }
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(" ")]
-        internal void Add_NameIsEmptyOrWhitespace_ShouldThrowArgumentException(string newItemName)
-        {
-          Action action = () => todoService.Add(newItemName);
-          action.ShouldThrow<ArgumentException>();
-        }
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    internal void Add_NameIsEmptyOrWhitespace_ShouldThrowArgumentException(string newItemName)
+    {
+      // Act & Assert
+      Action action = () => todoService.Add(newItemName);
+      action.ShouldThrow<ArgumentException>();
+    }
   }
 }
