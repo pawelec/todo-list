@@ -1,5 +1,6 @@
 using Shouldly;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TodoList.Services;
 using Xunit;
@@ -15,7 +16,46 @@ namespace TodoServices.Tests
       this.todoService = todoService;
     }
 
+    [Fact]
+    internal void Get_IdThatDoNotExist_ShouldReturnNull()
+    {
+      // Arrange
+      int id = int.MinValue;
+      TodoItem item = null;
 
+      // Act
+      item = this.todoService.Get(id);
+
+      // Assert
+      item.ShouldBeNull();
+    }
+
+    [Fact]
+    internal void Get_IdThatExist_ShouldReturnItem()
+    {
+      // It violates BDD.
+      // Arrange
+      int id = 1;
+      todoService.Add("Test");
+      TodoItem item = null;
+
+      // Act
+      item = this.todoService.Get(id);
+
+      // Assert
+      item.ShouldNotBeNull();
+      item.Id.ShouldBe(id);
+    }
+
+    [Fact]
+    internal void Get_NoParams_ShouldReturnListOfItems()
+    {
+      // Act
+      var items = this.todoService.Get();
+
+      // Assert
+      items.ShouldNotBeNull();
+    }
     [Fact]
     internal void Add_NameIsNull_ShouldThrowArgumentNullException()
     {

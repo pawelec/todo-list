@@ -6,19 +6,16 @@ namespace TodoList.Services
 {
   public class TodoService : IToDoService
   {
-    private static IEnumerable<TodoItem> todos;
+    private static IList<TodoItem> todos;
 
-    public TodoService()
+    static TodoService()
     {
       todos = new List<TodoItem>();
     }
 
     public TodoItem Get(int id) => todos.FirstOrDefault(todoItem => todoItem.Id == id);
 
-    public IEnumerable<TodoItem> Get()
-    {
-      throw new NotImplementedException();
-    }
+    public IList<TodoItem> Get() => todos;
 
     public TodoItem Add(string name)
     {
@@ -37,7 +34,7 @@ namespace TodoList.Services
         Id = todos.Count() + 1,
         Name = name
       };
-      todos.ToList().Add(todoItem);
+      todos.Add(todoItem);
 
       return todoItem;
     }

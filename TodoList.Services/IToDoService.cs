@@ -6,7 +6,7 @@ namespace TodoList.Services
   {
     TodoItem Get(int id);
 
-    IEnumerable<TodoItem> Get();
+    IList<TodoItem> Get();
 
     TodoItem Add(string name);
   }
