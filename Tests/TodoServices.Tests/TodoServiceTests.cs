@@ -1,6 +1,5 @@
 using Shouldly;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using TodoList.Services;
 using Xunit;
@@ -56,6 +55,7 @@ namespace TodoServices.Tests
       // Assert
       items.ShouldNotBeNull();
     }
+
     [Fact]
     internal void Add_NameIsNull_ShouldThrowArgumentNullException()
     {
@@ -104,6 +104,36 @@ namespace TodoServices.Tests
 
       // Assert
       actualItemsCount.ShouldBe(expectedItemsCount);
+    }
+
+    [Fact]
+    internal void MarkAsDone_ItemThatDoNotExist_ShouldReturnFalse()
+    {
+      // Arrange
+      int id = int.MinValue;
+
+      // Act
+      bool marked = this.todoService.MarkAsDone(id);
+
+      // Assert
+      marked.ShouldBeFalse();
+    }
+
+    [Fact]
+    internal void MarkAsDone_ItemThatExist_ShouldReturnTrue()
+    {
+      // Arrange
+      todoService.Add("Test");
+      var item = todoService.Get().LastOrDefault();
+
+      // Act
+      bool marked = this.todoService.MarkAsDone(item.Id);
+      item = todoService.Get(item.Id);
+
+      // Assert
+      marked.ShouldBeTrue();
+      item.ShouldNotBeNull();
+      item.IsDone.ShouldBeTrue();
     }
   }
 }

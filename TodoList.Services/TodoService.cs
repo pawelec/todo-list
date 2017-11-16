@@ -38,5 +38,17 @@ namespace TodoList.Services
 
       return todoItem;
     }
+
+    public bool MarkAsDone(int id)
+    {
+      var item = todos.FirstOrDefault(i => i.Id == id);
+      if (item == null)
+      {
+        return false;
+      }
+
+      item.IsDone = true;
+      return true;
+    }
   }
 }

@@ -9,5 +9,7 @@ namespace TodoList.Services
     IList<TodoItem> Get();
 
     TodoItem Add(string name);
+
+    bool MarkAsDone(int id);
   }
 }
