@@ -1,5 +1,6 @@
 using Shouldly;
 using System;
+using System.Linq;
 using TodoList.Services;
 using Xunit;
 
@@ -14,60 +15,56 @@ namespace TodoServices.Tests
       this.todoService = todoService;
     }
 
-    [Fact] // TODO: It violates the BDD
-    internal void Get_ByIdThatDoNotExist_ShouldReturnNull()
-    {
-      // Arrange
-      int todoId = 5;
-
-      // Act
-      var item = todoService.Get(todoId);
-
-      // Assert
-      item.ShouldBeNull();
-    }
-
-    [Fact] // TODO: It violates the BDD
-    internal void Get_ByIdThatExist_ShouldReturnObject()
-    {
-      // Arrange
-      int todoId = 1;
-
-      // Act
-      var item = todoService.Get(todoId);
-
-      // Assert
-      item.ShouldNotBeNull();
-      item.Id.ShouldBe(todoId);
-    }
-
-    [Fact] // TODO: It violates the BDD
-    internal void Get_EmptyCollection_ShouldReturnEmptyList()
-    {
-      var todoItems = todoService.Get();
-      todoItems.ShouldNotBeNull();
-      todoItems.ShouldNotBeEmpty();
-    }
 
     [Fact]
-    internal void Add_NullAsName_ShouldThrowArgumentNullException()
+    internal void Add_NameIsNull_ShouldThrowArgumentNullException()
     {
-      // Arrange
-      string newItemName = null;
-
       // Act & Assert
-      Action action = () => todoService.Add(newItemName);
+      Action action = () => this.todoService.Add(null);
       action.ShouldThrow<ArgumentNullException>();
     }
 
     [Theory]
     [InlineData("")]
     [InlineData(" ")]
-    internal void Add_NameIsEmptyOrWhitespace_ShouldThrowArgumentException(string newItemName)
+    internal void Add_NameIsNullOrWhiteSpace_ShouldThrowAppropriateException(
+      string name)
     {
       // Act & Assert
-      Action action = () => todoService.Add(newItemName);
+      Action action = () => this.todoService.Add(name);
       action.ShouldThrow<ArgumentException>();
+    }
+
+    [Fact]
+    internal void Add_NameIsValid_ShouldReturnNotNullTodoItem()
+    {
+      // Arrange
+      string name = "Test name";
+      TodoItem item = null;
+
+      // Act
+      item = this.todoService.Add(name);
+
+      // Assert
+      item.ShouldNotBeNull();
+      item.Name.ShouldBe(name);
+    }
+
+    [Fact]
+    internal void Add_NameIsValid_NewItemShouldBeAdded()
+    {
+      // Arrange
+      string name = "Test name";
+      int actualItemsCount = this.todoService.Get().Count();
+      int expectedItemsCount = actualItemsCount + 1;
+
+      // Act
+      this.todoService.Add(name);
+      actualItemsCount = this.todoService.Get().Count();
+
+      // Assert
+      actualItemsCount.ShouldBe(expectedItemsCount);
     }
   }
 }
+

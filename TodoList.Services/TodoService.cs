@@ -6,10 +6,19 @@ namespace TodoList.Services
 {
   public class TodoService : IToDoService
   {
-    private IEnumerable<TodoItem> todos = new List<TodoItem>
+    private static IEnumerable<TodoItem> todos;
+
+    public TodoService()
     {
-      new TodoItem { Id = 1, Name = "Test name" }
-    };
+      todos = new List<TodoItem>();
+    }
+
+    public TodoItem Get(int id) => todos.FirstOrDefault(todoItem => todoItem.Id == id);
+
+    public IEnumerable<TodoItem> Get()
+    {
+      throw new NotImplementedException();
+    }
 
     public TodoItem Add(string name)
     {
@@ -23,14 +32,14 @@ namespace TodoList.Services
         throw new ArgumentException("Argument can not be blank", nameof(name));
       }
 
-      throw new NotImplementedException();
-    }
+      var todoItem = new TodoItem
+      {
+        Id = todos.Count() + 1,
+        Name = name
+      };
+      todos.ToList().Add(todoItem);
 
-    public TodoItem Get(int id) => this.todos.FirstOrDefault(todoItem => todoItem.Id == id);
-
-    public IEnumerable<TodoItem> Get()
-    {
-      throw new NotImplementedException();
+      return todoItem;
     }
   }
 }
