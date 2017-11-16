@@ -1,9 +1,4 @@
-# Todo List
-
 ![Alt text](/../assets/header.png?raw=true "Optional Title")
-
-
-This project is a simple web application which allow you to add items to do to your list, view them and modify.
 
 ## Setup
 
