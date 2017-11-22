@@ -53,5 +53,52 @@ namespace TodoWeb.Tests
         () => resultValue.ShouldNotBeNull(),
         () => resultValue.ShouldBeOfType<List<TodoItem>>());
     }
+
+    [Fact]
+    internal void MarkAsDone_ExceptionOccured_ShouldReturnInternalServerError()
+    {
+      // Arrange
+      todoService.MarkAsDone(Arg.Any<int>()).Throws(new Exception());
+      var controller = new TodoController(todoService);
+
+      // Act
+      var result = controller.MarkAsDone(0);
+
+      // Assert
+      result.ShouldNotBeNull();
+      result.ShouldBeOfType<StatusCodeResult>();
+      (result as StatusCodeResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
+    }
+
+    [Fact]
+    internal void MarkAsDone_ItemDontExist_ShouldReturnOkWithFalse()
+    {
+      // Arrange
+      todoService.MarkAsDone(Arg.Any<int>()).Returns(false);
+      var controller = new TodoController(todoService);
+
+      // Act
+      var result = controller.MarkAsDone(0);
+
+      // Assert
+      result.ShouldNotBeNull();
+      result.ShouldBeOfType<OkObjectResult>();
+      (result as OkObjectResult).Value.ShouldBe(false);
+    }
+    [Fact]
+    internal void MarkAsDone_ItemExist_ShouldReturnOkWithTrue()
+    {
+      // Arrange
+      todoService.MarkAsDone(Arg.Any<int>()).Returns(true);
+      var controller = new TodoController(todoService);
+
+      // Act
+      var result = controller.MarkAsDone(0);
+
+      // Assert
+      result.ShouldNotBeNull();
+      result.ShouldBeOfType<OkObjectResult>();
+      (result as OkObjectResult).Value.ShouldBe(true);
+    }
   }
 }
