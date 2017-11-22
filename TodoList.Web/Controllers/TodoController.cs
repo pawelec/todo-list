@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using TodoList.Services;
 using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using TodoList.Services;
 
 namespace TodoApi.Controllers
 {
@@ -15,9 +14,16 @@ namespace TodoApi.Controllers
             this.todoService = todoService;
         }
 
-        public IActionResult Get() => throw new NotImplementedException();
-
-        public IActionResult Get(int itemId) => throw new NotImplementedException();
-        public IActionResult Add(string name) => throw new NotImplementedException();
+      public IActionResult GetAll()
+      {
+        try
+        {
+          return new OkObjectResult(this.todoService.Get());
+        }
+        catch (Exception ex)
+        {
+          return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+      }
     }
 }
