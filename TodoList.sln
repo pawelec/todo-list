@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Web", "TodoList.Web\TodoList.Web.csproj", "{231C909F-6339-40A5-8AAE-FA89F4292FBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Web", "Todos.Web\Todos.Web.csproj", "{231C909F-6339-40A5-8AAE-FA89F4292FBA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Services", "Todos.Services\Todos.Services.csproj", "{30645D88-E30C-4A78-91C6-B7F2B39A803E}"
 EndProject

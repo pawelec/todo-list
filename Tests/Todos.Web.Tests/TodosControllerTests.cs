@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Shouldly;
-using TodoApi.Controllers;
+using TodosApi.Controllers;
 using Todos.Services;
 using Xunit;
 
@@ -25,7 +25,7 @@ namespace Todos.Web.Tests
     {
       // Arrange
       todoService.Get().Throws(new Exception());
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.GetAll();
@@ -41,7 +41,7 @@ namespace Todos.Web.Tests
     {
       // Arrange
       todoService.Get().Returns(new List<TodoItem>());
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.GetAll();
@@ -59,7 +59,7 @@ namespace Todos.Web.Tests
     {
       // Arrange
       todoService.MarkAsDone(Arg.Any<int>()).Throws(new Exception());
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.MarkAsDone(0);
@@ -75,7 +75,7 @@ namespace Todos.Web.Tests
     {
       // Arrange
       todoService.MarkAsDone(Arg.Any<int>()).Returns(false);
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.MarkAsDone(0);
@@ -90,7 +90,7 @@ namespace Todos.Web.Tests
     {
       // Arrange
       todoService.MarkAsDone(Arg.Any<int>()).Returns(true);
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.MarkAsDone(0);
@@ -109,7 +109,7 @@ namespace Todos.Web.Tests
       string value)
     {
       // Arrange
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.Create(value) as BadRequestResult;
@@ -125,7 +125,7 @@ namespace Todos.Web.Tests
     {
       // Arrange
       todoService.Add(Arg.Any<string>()).Throws(new Exception());
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.Create("test");
@@ -141,7 +141,7 @@ namespace Todos.Web.Tests
     {
       // Arrange
       todoService.Add(Arg.Any<string>()).Returns((TodoItem)null);
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.Create("test") as NoContentResult;
@@ -160,7 +160,7 @@ namespace Todos.Web.Tests
       {
         Id = 1, Name = "test", IsDone = false
       });
-      var controller = new TodoController(todoService);
+      var controller = new TodosController(todoService);
 
       // Act
       var result = controller.Create("test") as CreatedResult;

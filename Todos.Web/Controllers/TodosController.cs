@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Todos.Services;
 using Todos.Common;
 
-namespace TodoApi.Controllers
+namespace TodosApi.Controllers
 {
-  public class TodoController : Controller
+  public class TodosController : Controller
   {
     private readonly ITodosService todoService;
 
-    public TodoController(ITodosService todoService)
+    public TodosController(ITodosService todoService)
     {
       this.todoService = todoService;
     }

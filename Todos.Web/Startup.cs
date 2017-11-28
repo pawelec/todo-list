@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using Todos.Services;
 
-namespace TodoList.Web
+namespace Todos.Web
 {
     public class Startup
     {
