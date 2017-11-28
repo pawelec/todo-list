@@ -9,13 +9,13 @@ using TodoApi.Controllers;
 using TodoList.Services;
 using Xunit;
 
-namespace TodoWeb.Tests
+namespace Todos.Web.Tests
 {
-  public class TodoControllerTests
+  public class TodosControllerTests
   {
     private readonly IToDoService todoService;
 
-    public TodoControllerTests()
+    public TodosControllerTests()
     {
       this.todoService = Substitute.For<IToDoService>();
     }

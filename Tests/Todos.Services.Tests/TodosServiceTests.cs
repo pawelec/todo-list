@@ -4,13 +4,13 @@ using System.Linq;
 using TodoList.Services;
 using Xunit;
 
-namespace TodoServices.Tests
+namespace Todos.Services.Tests
 {
-  public class TodoServiceTests : IClassFixture<TodoService>
+  public class TodosServiceTests : IClassFixture<TodoService>
   {
     private readonly IToDoService todoService;
 
-    public TodoServiceTests(TodoService todoService)
+    public TodosServiceTests(TodoService todoService)
     {
       this.todoService = todoService;
     }
