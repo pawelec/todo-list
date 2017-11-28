@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using TodoList.Common;
+using Todos.Common;
 using Shouldly;
 
 namespace Todos.Common.Tests

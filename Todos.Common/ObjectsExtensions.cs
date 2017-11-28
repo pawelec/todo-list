@@ -1,4 +1,4 @@
-namespace TodoList.Common
+namespace Todos.Common
 {
   public static class ObjectsExtensions
   {

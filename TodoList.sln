@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4E0A44FE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Services.Tests", "Tests\Todos.Services.Tests\Todos.Services.Tests.csproj", "{98B1E9DD-BCAB-4F81-9AAB-329EC72B1523}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Common", "TodoList.Common\TodoList.Common.csproj", "{727F4197-5B75-4C49-B3F5-87955E4FD684}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Common", "Todos.Common\Todos.Common.csproj", "{727F4197-5B75-4C49-B3F5-87955E4FD684}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Common.Tests", "Tests\Todos.Common.Tests\Todos.Common.Tests.csproj", "{700BACF6-2502-41A7-AB03-104B4317ED83}"
 EndProject
