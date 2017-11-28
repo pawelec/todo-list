@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TodoList.Services;
+using TodoList.Common;
 
 namespace TodoApi.Controllers
 {
@@ -36,6 +37,28 @@ namespace TodoApi.Controllers
       {
         return StatusCode(StatusCodes.Status500InternalServerError);
       }
+    }
+
+    public IActionResult Create(string value)
+    {
+      if (string.IsNullOrWhiteSpace(value))
+      {
+        return BadRequest();
+      }
+      try
+      {
+        var result = this.todoService.Add(value);
+        if (result.IsNull())
+        {
+          return NoContent();
+        }
+        return Created("", value);
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(StatusCodes.Status500InternalServerError);
+      }
+      
     }
   }
 }

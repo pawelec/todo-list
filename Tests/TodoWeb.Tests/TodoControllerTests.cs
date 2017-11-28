@@ -100,5 +100,75 @@ namespace TodoWeb.Tests
       result.ShouldBeOfType<OkObjectResult>();
       (result as OkObjectResult).Value.ShouldBe(true);
     }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    internal void Create_ValueIsNullOrWhitespace_ShouldReturnBadRequest(
+      string value)
+    {
+      // Arrange
+      var controller = new TodoController(todoService);
+
+      // Act
+      var result = controller.Create(value) as BadRequestResult;
+
+      // Assert
+      result.ShouldNotBeNull();
+      result.ShouldBeOfType<BadRequestResult>();
+      result.StatusCode.ShouldBe(StatusCodes.Status400BadRequest);
+    }
+
+    [Fact]
+    internal void Create_ExceptionOccured_ShouldReturnInternalServerError()
+    {
+      // Arrange
+      todoService.Add(Arg.Any<string>()).Throws(new Exception());
+      var controller = new TodoController(todoService);
+
+      // Act
+      var result = controller.Create("test");
+
+      // Assert
+      result.ShouldNotBeNull();
+      result.ShouldBeOfType<StatusCodeResult>();
+      (result as StatusCodeResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
+    }
+
+    [Fact]
+    internal void Create_ItemNotCreated_ShouldReturnEmptyResult()
+    {
+      // Arrange
+      todoService.Add(Arg.Any<string>()).Returns((TodoItem)null);
+      var controller = new TodoController(todoService);
+
+      // Act
+      var result = controller.Create("test") as NoContentResult;
+
+      // Assert
+      result.ShouldNotBeNull();
+      result.ShouldBeOfType<NoContentResult>();
+      result.StatusCode.ShouldBe(StatusCodes.Status204NoContent);
+    }
+
+    [Fact]
+    internal void Create_ItemWasCreated_ShouldReturnCreatedResultWithContent()
+    {
+      // Arrange
+      todoService.Add(Arg.Any<string>()).Returns(new TodoItem
+      {
+        Id = 1, Name = "test", IsDone = false
+      });
+      var controller = new TodoController(todoService);
+
+      // Act
+      var result = controller.Create("test") as CreatedResult;
+
+      // Assert
+      result.ShouldNotBeNull();
+      result.StatusCode.ShouldBe(StatusCodes.Status201Created);
+      result.Value.ShouldNotBeNull();
+    }
   }
 }
