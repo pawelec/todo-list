@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace TodoList.Services
+namespace Todos.Services
 {
-  public interface IToDoService
+  public interface ITodosService
   {
     TodoItem Get(int id);
 

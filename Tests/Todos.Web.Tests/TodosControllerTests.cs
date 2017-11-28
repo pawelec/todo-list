@@ -6,18 +6,18 @@ using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Shouldly;
 using TodoApi.Controllers;
-using TodoList.Services;
+using Todos.Services;
 using Xunit;
 
 namespace Todos.Web.Tests
 {
   public class TodosControllerTests
   {
-    private readonly IToDoService todoService;
+    private readonly ITodosService todoService;
 
     public TodosControllerTests()
     {
-      this.todoService = Substitute.For<IToDoService>();
+      this.todoService = Substitute.For<ITodosService>();
     }
 
     [Fact]

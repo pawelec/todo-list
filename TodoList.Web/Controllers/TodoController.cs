@@ -1,16 +1,16 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TodoList.Services;
+using Todos.Services;
 using Todos.Common;
 
 namespace TodoApi.Controllers
 {
   public class TodoController : Controller
   {
-    private readonly IToDoService todoService;
+    private readonly ITodosService todoService;
 
-    public TodoController(IToDoService todoService)
+    public TodoController(ITodosService todoService)
     {
       this.todoService = todoService;
     }

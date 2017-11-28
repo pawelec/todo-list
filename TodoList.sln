@@ -4,7 +4,7 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Web", "TodoList.Web\TodoList.Web.csproj", "{231C909F-6339-40A5-8AAE-FA89F4292FBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Services", "TodoList.Services\TodoList.Services.csproj", "{30645D88-E30C-4A78-91C6-B7F2B39A803E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Services", "Todos.Services\Todos.Services.csproj", "{30645D88-E30C-4A78-91C6-B7F2B39A803E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4E0A44FE-CC97-448E-AFC4-9D60A733AA9E}"
 EndProject
