@@ -1,4 +1,4 @@
-![Alt text](/../assets/header.png?raw=true "Optional Title")
+![Alt text](/../assets/header.png?raw=true "Project header")
 
 ## Getting Started
 
@@ -13,16 +13,16 @@ To clone, run and test this application, you'll need `Git`, `Node.js` (which com
 From your command line:
 ```
 # Clone this repository
-$ git clone https://github.com/pawelec/todo-list
+$ git clone https://github.com/pawelec/todos
 
 # Go into the repository
-$ cd todo-list
+$ cd todos
 
 # Restore & rebuild solution
 $ dotnet build
 
 # Install dependencies
-$ cd TodoList.Web
+$ cd Todos.Web
 $ npm install
 
 # Build client side app
@@ -34,8 +34,8 @@ $ dotnet run
 
 ### Tests
 
-Type `dotnet test` inside `todo-list` folder to run backend tests.
-Type `ng test` inside `TodoList.Web` folder to run frontend tests.
+Type `dotnet test` inside `todos` folder to run backend tests.
+Type `ng test` inside `Todos.Web` folder to run frontend tests.
 
 ## License
 
