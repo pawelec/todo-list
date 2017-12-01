@@ -21,9 +21,17 @@ namespace Todos.Web
             services.AddScoped<ITodosService, TodosService>();
             services.AddMvc();
 
-             services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "Todos API",
+                    Description = "A Web API documentation for Todos project",
+                    TermsOfService = "None",
+                    Contact = new Contact { Name = "Paweł Pawelec", Email = "", Url = "https://github.com/pawelec" },
+                    License = new License { Name = "Use under MIT", Url = "https://choosealicense.com/licenses/mit/" }
+                });
             });
         }
 
@@ -42,12 +50,11 @@ namespace Todos.Web
                     await next();
                 }
             });
-            app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todos API v1");
             });
 
             app.UseMvcWithDefaultRoute();
