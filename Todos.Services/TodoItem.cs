@@ -1,4 +1,4 @@
-namespace TodoList.Services
+namespace Todos.Services
 {
   public class TodoItem
   {

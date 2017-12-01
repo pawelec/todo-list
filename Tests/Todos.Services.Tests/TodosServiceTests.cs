@@ -1,16 +1,16 @@
 using Shouldly;
 using System;
 using System.Linq;
-using TodoList.Services;
+using Todos.Services;
 using Xunit;
 
-namespace TodoServices.Tests
+namespace Todos.Services.Tests
 {
-  public class TodoServiceTests : IClassFixture<TodoService>
+  public class TodosServiceTests : IClassFixture<TodosService>
   {
-    private readonly IToDoService todoService;
+    private readonly ITodosService todoService;
 
-    public TodoServiceTests(TodoService todoService)
+    public TodosServiceTests(TodosService todoService)
     {
       this.todoService = todoService;
     }

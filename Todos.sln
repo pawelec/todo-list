@@ -2,19 +2,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Web", "TodoList.Web\TodoList.Web.csproj", "{231C909F-6339-40A5-8AAE-FA89F4292FBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Web", "Todos.Web\Todos.Web.csproj", "{231C909F-6339-40A5-8AAE-FA89F4292FBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Services", "TodoList.Services\TodoList.Services.csproj", "{30645D88-E30C-4A78-91C6-B7F2B39A803E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Services", "Todos.Services\Todos.Services.csproj", "{30645D88-E30C-4A78-91C6-B7F2B39A803E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4E0A44FE-CC97-448E-AFC4-9D60A733AA9E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoServices.Tests", "Tests\TodoServices.Tests\TodoServices.Tests.csproj", "{98B1E9DD-BCAB-4F81-9AAB-329EC72B1523}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Services.Tests", "Tests\Todos.Services.Tests\Todos.Services.Tests.csproj", "{98B1E9DD-BCAB-4F81-9AAB-329EC72B1523}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Common", "TodoList.Common\TodoList.Common.csproj", "{727F4197-5B75-4C49-B3F5-87955E4FD684}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Common", "Todos.Common\Todos.Common.csproj", "{727F4197-5B75-4C49-B3F5-87955E4FD684}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoCommon.Tests", "Tests\TodoCommon.Tests\TodoCommon.Tests.csproj", "{700BACF6-2502-41A7-AB03-104B4317ED83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Common.Tests", "Tests\Todos.Common.Tests\Todos.Common.Tests.csproj", "{700BACF6-2502-41A7-AB03-104B4317ED83}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoWeb.Tests", "Tests\TodoWeb.Tests\TodoWeb.Tests.csproj", "{7EC0B3AE-E5FD-49BE-8BA8-DC32AD3696F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todos.Web.Tests", "Tests\Todos.Web.Tests\Todos.Web.Tests.csproj", "{7EC0B3AE-E5FD-49BE-8BA8-DC32AD3696F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

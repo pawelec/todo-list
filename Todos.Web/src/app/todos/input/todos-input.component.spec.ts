@@ -48,7 +48,7 @@ describe('TodosInputComponent', function () {
 
     it('input placeholder should be "enter thing to do"', () => {
         const inputControl = fixture.debugElement.query(By.css('input')).nativeElement;
-        expect(inputControl.placeholder).toBe('enter thing to do');
+        expect(inputControl.placeholder).toBe('type thing to do and press enter to add');
     });
 
     it('submit invalid form should return false', () => {

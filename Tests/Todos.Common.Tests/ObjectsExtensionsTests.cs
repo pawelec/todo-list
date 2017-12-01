@@ -1,9 +1,9 @@
 using System;
 using Xunit;
-using TodoList.Common;
+using Todos.Common;
 using Shouldly;
 
-namespace TodoCommon.Tests
+namespace Todos.Common.Tests
 {
   public class ObjectsExtensionsTests
   {

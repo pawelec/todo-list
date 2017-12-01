@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TodoList.Services
+namespace Todos.Services
 {
-  public class TodoService : IToDoService
+  public class TodosService : ITodosService
   {
     private static IList<TodoItem> todos;
 
-    static TodoService()
+    static TodosService()
     {
       todos = new List<TodoItem>();
     }

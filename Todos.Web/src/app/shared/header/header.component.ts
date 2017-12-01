@@ -7,6 +7,6 @@ import { Component } from "@angular/core";
 })
 
 export class HeaderComponent {
-    readonly title: string = 'TODO LIST';
+    readonly title: string = 'TODOS';
     readonly subtitle: string = 'It\'s a place where you can write list your items to do';
 }
