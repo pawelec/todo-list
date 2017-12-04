@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Item } from './models/item';
 
 @Injectable()
@@ -6,7 +7,7 @@ export class TodosService {
     private items: Item[];
     private lastItemId: number;
 
-    constructor() {
+    constructor(private http: HttpClient) {
         this.items = new Array<Item>();
         this.lastItemId = -1;
     }
@@ -22,14 +23,17 @@ export class TodosService {
 
     public add(name: string): boolean {
         if(name) {
-            this.lastItemId++;
-            this.items.push({
-                id: this.lastItemId,
-                name: name,
-                created: new Date(),
-                isDone: false
+            this.http.post('/api/todos', { value: name }).subscribe(response => {
+                if(response.value === name) {
+                    this.items.push({
+                        id: this.lastItemId,
+                        name: name,
+                        created: new Date(),
+                        isDone: false
+                    });
+                    return true;
+                }
             });
-            return true;
         }
         return false;
     }
