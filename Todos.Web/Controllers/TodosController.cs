@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Todos.Services;
 using Todos.Common;
+using Todos.Web.Models;
 
 namespace TodosApi.Controllers
 {
@@ -30,20 +31,20 @@ namespace TodosApi.Controllers
     }
 
     [HttpPost]
-    public IActionResult Create(string value)
+    public IActionResult Create([FromBody] CreateTodoItemObjectModel model)
     {
-      if (string.IsNullOrWhiteSpace(value))
+      if (model.IsNull() || string.IsNullOrWhiteSpace(model.Value))
       {
         return BadRequest();
       }
       try
       {
-        var result = this.todoService.Add(value);
+        var result = this.todoService.Add(model.Value);
         if (result.IsNull())
         {
           return NoContent();
         }
-        return Created("", value);
+        return Created("", model);
       }
       catch (Exception ex)
       {

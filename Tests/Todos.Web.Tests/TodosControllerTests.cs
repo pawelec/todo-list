@@ -8,6 +8,7 @@ using Shouldly;
 using TodosApi.Controllers;
 using Todos.Services;
 using Xunit;
+using Todos.Web.Models;
 
 namespace Todos.Web.Tests
 {
@@ -101,6 +102,20 @@ namespace Todos.Web.Tests
       (result as OkObjectResult).Value.ShouldBe(true);
     }
 
+    [Fact]
+    internal void Create_ObjectIsNull_ShouldReturnBadRequest()
+    {
+      // Arrange
+      var controller = new TodosController(todoService);
+
+      // Act
+      var result = controller.Create(null) as BadRequestResult;
+
+      // Assert
+      result.ShouldNotBeNull();
+      result.ShouldBeOfType<BadRequestResult>();
+      result.StatusCode.ShouldBe(StatusCodes.Status400BadRequest);
+    }
     [Theory]
     [InlineData(null)]
     [InlineData("")]
@@ -110,9 +125,9 @@ namespace Todos.Web.Tests
     {
       // Arrange
       var controller = new TodosController(todoService);
-
+      var model = new CreateTodoItemObjectModel { Value = value };
       // Act
-      var result = controller.Create(value) as BadRequestResult;
+      var result = controller.Create(model) as BadRequestResult;
 
       // Assert
       result.ShouldNotBeNull();
@@ -126,9 +141,9 @@ namespace Todos.Web.Tests
       // Arrange
       todoService.Add(Arg.Any<string>()).Throws(new Exception());
       var controller = new TodosController(todoService);
-
+      var model = new CreateTodoItemObjectModel { Value = "Test" };
       // Act
-      var result = controller.Create("test");
+      var result = controller.Create(model);
 
       // Assert
       result.ShouldNotBeNull();
@@ -142,9 +157,10 @@ namespace Todos.Web.Tests
       // Arrange
       todoService.Add(Arg.Any<string>()).Returns((TodoItem)null);
       var controller = new TodosController(todoService);
+      var model = new CreateTodoItemObjectModel { Value = "Test" };
 
       // Act
-      var result = controller.Create("test") as NoContentResult;
+      var result = controller.Create(model) as NoContentResult;
 
       // Assert
       result.ShouldNotBeNull();
@@ -161,9 +177,10 @@ namespace Todos.Web.Tests
         Id = 1, Name = "test", IsDone = false
       });
       var controller = new TodosController(todoService);
+      var model = new CreateTodoItemObjectModel { Value = "Test" };
 
       // Act
-      var result = controller.Create("test") as CreatedResult;
+      var result = controller.Create(model) as CreatedResult;
 
       // Assert
       result.ShouldNotBeNull();
