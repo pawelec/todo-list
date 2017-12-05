@@ -125,7 +125,7 @@ namespace Todos.Web.Tests
     {
       // Arrange
       var controller = new TodosController(todoService);
-      var model = new CreateTodoItemObjectModel { Value = value };
+      var model = new TodoForCreationDto { Value = value };
       // Act
       var result = controller.Create(model) as BadRequestResult;
 
@@ -141,7 +141,7 @@ namespace Todos.Web.Tests
       // Arrange
       todoService.Add(Arg.Any<string>()).Throws(new Exception());
       var controller = new TodosController(todoService);
-      var model = new CreateTodoItemObjectModel { Value = "Test" };
+      var model = new TodoForCreationDto { Value = "Test" };
       // Act
       var result = controller.Create(model);
 
@@ -157,7 +157,7 @@ namespace Todos.Web.Tests
       // Arrange
       todoService.Add(Arg.Any<string>()).Returns((TodoItem)null);
       var controller = new TodosController(todoService);
-      var model = new CreateTodoItemObjectModel { Value = "Test" };
+      var model = new TodoForCreationDto { Value = "Test" };
 
       // Act
       var result = controller.Create(model) as NoContentResult;
@@ -177,7 +177,7 @@ namespace Todos.Web.Tests
         Id = 1, Name = "test", IsDone = false
       });
       var controller = new TodosController(todoService);
-      var model = new CreateTodoItemObjectModel { Value = "Test" };
+      var model = new TodoForCreationDto { Value = "Test" };
 
       // Act
       var result = controller.Create(model) as CreatedResult;
