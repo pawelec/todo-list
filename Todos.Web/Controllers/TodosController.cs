@@ -46,7 +46,7 @@ namespace TodosApi.Controllers
                 {
                     throw new Exception("Creating an author failed on save.");
                 }
-                return Created("", todo);
+                return Created("", result);
             }
             catch (Exception)
             {

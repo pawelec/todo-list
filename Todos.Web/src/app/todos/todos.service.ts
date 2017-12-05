@@ -1,6 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Item } from './models/item';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class TodosService {
@@ -12,8 +14,8 @@ export class TodosService {
         this.lastItemId = -1;
     }
 
-    public get(): Item[] {
-        return this.items;
+    public get(): Observable<Item[]> {
+        return this.http.get('/api/todos').map(response => <Item[]>response);
     }
 
     public getById(id: number): Item {
@@ -21,21 +23,14 @@ export class TodosService {
         return item ? item : null;
     }
 
-    public add(name: string): boolean {
+    public add(name: string): Observable<boolean> {
         if(name) {
-            this.http.post('/api/todos', { value: name }).subscribe(response => {
-                if(response.value === name) {
-                    this.items.push({
-                        id: this.lastItemId,
-                        name: name,
-                        created: new Date(),
-                        isDone: false
-                    });
-                    return true;
-                }
-            });
+            return this.http.post('/api/todos', { value: name })
+                .map(response => {
+                    var item = <Item>response;
+                    return item !== null;
+                });
         }
-        return false;
     }
 
     public remove(item: Item): boolean {
