@@ -19,7 +19,9 @@ namespace Todos.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ITodosService, TodosService>();
-            services.AddMvc();
+            services.AddMvc(setupAction => {
+                setupAction.ReturnHttpNotAcceptable = true;
+            });
 
             services.AddSwaggerGen(c =>
             {
