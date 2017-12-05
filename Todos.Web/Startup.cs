@@ -38,6 +38,16 @@ namespace Todos.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            if(env.IsDevelopment()) {
+                app.UseDeveloperExceptionPage();
+            } else {
+                app.UseExceptionHandler(appBuilder => {
+                    appBuilder.Run(async context => {
+                        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                        await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
+                    });
+                });
+            }
             // Redirect any non-api calls to the Angular app.
             app.Use(async (context, next) =>
             {
