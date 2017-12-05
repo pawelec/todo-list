@@ -18,38 +18,59 @@ namespace TodosApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTodos()
+        public IActionResult Get()
         {
-            var todos = this.todoService.Get();
-            return this.Ok(todos);
+            try
+            {
+                var todos = this.todoService.Get();
+                return this.Ok(todos);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpPost]
         public IActionResult Create([FromBody] TodoForCreationDto todo)
         {
-            if (todo.IsNull() || string.IsNullOrWhiteSpace(todo.Value))
+            try
             {
-                return BadRequest();
-            }
+                if (todo.IsNull() || string.IsNullOrWhiteSpace(todo.Value))
+                {
+                    return BadRequest();
+                }
 
-            var result = this.todoService.Add(todo.Value);
-            if (result.IsNull())
-            {
-                throw new Exception("Creating an author failed on save.");
+                var result = this.todoService.Add(todo.Value);
+                if (result.IsNull())
+                {
+                    throw new Exception("Creating an author failed on save.");
+                }
+                return Created("", todo);
             }
-            return Created("", todo);
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpPut("{todoId}")]
         public IActionResult MarkAsDone(int todoId)
         {
-            if (this.todoService.Get(todoId).IsNull())
+            try
             {
-                return NotFound();
-            }
+                if (this.todoService.Get(todoId).IsNull())
+                {
+                    return NotFound();
+                }
 
-            var result = this.todoService.MarkAsDone(todoId);
-            return Ok(result);
+                var result = this.todoService.MarkAsDone(todoId);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
