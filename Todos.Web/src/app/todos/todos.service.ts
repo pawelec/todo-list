@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Item } from './models/item';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class TodosService {
@@ -15,7 +16,10 @@ export class TodosService {
     }
 
     public get(): Observable<Item[]> {
-        return this.http.get<Item[]>('/api/todos');
+        return this.http.get<Item[]>('/api/todos')
+            .catch(error => {
+                return Observable.throw('An error occurred');
+            });
     }
 
     public getById(id: number): Item {
@@ -24,15 +28,15 @@ export class TodosService {
     }
 
     public add(name: string): Observable<Item> {
-        if(name) {
+        if (name) {
             return this.http.post<Item>('/api/todos', { value: name });
         }
     }
 
     public remove(item: Item): boolean {
-        if(item) {
+        if (item) {
             let itemIndex = this.items.findIndex(i => i.id === item.id);
-            if(itemIndex !== -1) {
+            if (itemIndex !== -1) {
                 this.items.splice(itemIndex, 1);
                 return true;
             }
@@ -46,7 +50,7 @@ export class TodosService {
 
     public edit(item: Item): boolean {
         let itemToEdit = this.items.find(i => i.id === item.id);
-        if(itemToEdit) {
+        if (itemToEdit) {
             itemToEdit.name = item.name;
             return true;
         }
