@@ -1,36 +1,34 @@
 // angular
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { HttpErrorResponse } from "@angular/common/http/src/response";
 // services
 import { TodosService } from "./todos.service";
 // models
 import { Item } from "./models/item";
-import { HttpErrorResponse } from "@angular/common/http/src/response";
 
 @Component({
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css']
 })
 
-export class TodosComponent {
+export class TodosComponent implements OnInit {
   thingsToDo: Item[];
 
-  constructor(private todosService: TodosService) {
-    this.getTodos();
-  }
+  constructor(private todosService: TodosService) { }
 
-  private getTodos() {
+  ngOnInit() {
     this.todosService.get().subscribe(todos => this.thingsToDo = todos);
   }
-  
+
   onThingAdded(thingToDo: string) {
     this.todosService.add(thingToDo).subscribe(
-      data => { 
-        if(data !== null) {
+      data => {
+        if (data !== null) {
           this.thingsToDo.push(data);
         }
       },
       (e: HttpErrorResponse) => {
-        if(e.error instanceof Error) {
+        if (e.error instanceof Error) {
           // A client-side or network error occurred. Handle it accordingly.
           console.log('An error occurred:', e.error.message);
         } else {
