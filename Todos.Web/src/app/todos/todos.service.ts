@@ -40,13 +40,8 @@ export class TodosService {
         return false;
     }
 
-    public markAsDone(id: number): boolean {
-        let item = this.items.find(item => item.id === id);
-        if(item) {
-            item.isDone = true;
-            return true;
-        }
-        return false;
+    public markAsDone(id: number): Observable<boolean> {
+        return this.http.put<boolean>('/api/todos/' + id, "");
     }
 
     public edit(item: Item): boolean {
