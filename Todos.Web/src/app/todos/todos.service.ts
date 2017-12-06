@@ -23,13 +23,9 @@ export class TodosService {
         return item ? item : null;
     }
 
-    public add(name: string): Observable<boolean> {
+    public add(name: string): Observable<Item> {
         if(name) {
-            return this.http.post('/api/todos', { value: name })
-                .map(response => {
-                    var item = <Item>response;
-                    return item !== null;
-                });
+            return this.http.post<Item>('/api/todos', { value: name });
         }
     }
 
