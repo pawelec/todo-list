@@ -15,7 +15,7 @@ export class TodosService {
     }
 
     public get(): Observable<Item[]> {
-        return this.http.get('/api/todos').map(response => <Item[]>response);
+        return this.http.get<Item[]>('/api/todos');
     }
 
     public getById(id: number): Item {

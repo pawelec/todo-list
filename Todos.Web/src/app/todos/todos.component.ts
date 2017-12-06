@@ -17,7 +17,18 @@ export class TodosComponent implements OnInit {
   constructor(private todosService: TodosService) { }
 
   ngOnInit() {
-    this.todosService.get().subscribe(todos => this.thingsToDo = todos);
+    this.todosService.get().subscribe(
+      data => this.thingsToDo = data,
+      (e: HttpErrorResponse) => {
+        if (e.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.log('An error occurred:', e.error.message);
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          console.log(`Backend returned code ${e.status}, body was: ${e.error}`);
+        }
+      });
   }
 
   onThingAdded(thingToDo: string) {
