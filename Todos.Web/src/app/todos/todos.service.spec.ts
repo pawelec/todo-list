@@ -28,7 +28,7 @@ describe('Todos Service', () => {
         httpMock.verify();
     }));
 
-    // it('should create service', () => expect(this.service).toBeDefined());
+    it('should create service', () => expect(service).toBeDefined());
 
     it('get - return array of todos',
         inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
@@ -70,255 +70,94 @@ describe('Todos Service', () => {
             req.flush({ errorMessage: 'Uh oh!' }, { status: 500, statusText: 'Server Error' });
         }));
 
+    it('markAsDone - should return false when API returns false',
+        inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+            let number: 0;
 
-    // // get
-    // it('after init getItems() should return empty list', () => {
-    //     // arrange
-    //     let expectedItemsCount = 0;
-    //     let actualItemsCount: number;
+            service.markAsDone(number).subscribe(data => expect(data).toBe('false'));
 
-    //     // act
-    //     actualItemsCount = this.service.get().length;
+            const req = httpMock.expectOne('/api/todos/' + number);
+            expect(req.request.method).toEqual('PUT');
 
-    //     // assert
-    //     expect(actualItemsCount).toBe(expectedItemsCount);
-    // });
+            req.flush(false.toString());
+        }));
 
-    // it('get item by undefined id should return null', () => {
-    //     // arrange
-    //     let itemId = undefined;
-    //     let item: Item;
+    it('markAsDone - should return true when API returns true',
+        inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+            let number: 0;
 
-    //     // act
-    //     item = this.service.getById(itemId);
+            service.markAsDone(number).subscribe(data => expect(<boolean>data).toBeTruthy());
 
-    //     // assert
-    //     expect(item).toBeNull();
-    // });
+            const req = httpMock.expectOne('/api/todos/' + number);
+            expect(req.request.method).toEqual('PUT');
 
-    // it('get item by null id should return null', () => {
-    //     // arrange
-    //     let itemId = null;
-    //     let item: Item;
+            req.flush(true.toString());
+        }));
 
-    //     // act
-    //     item = this.service.getById(itemId);
+    it('markAsDone - should throw with an error message when API returns an error',
+        inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+            service.markAsDone(0)
+                .catch(actualError => {
+                    expect(Observable.of(actualError)).toBeTruthy();
+                    expect(actualError).toBeTruthy();
+                    return Observable.of(actualError);
+                })
+                .subscribe();
 
-    //     // assert
-    //     expect(item).toBeNull();
-    // });
+            const req = httpMock.expectOne('/api/todos/' + 0);
+            expect(req.request.method).toEqual('PUT');
 
-    // it('get item by id if not exist should return null', () => {
-    //     // arrange
-    //     let itemId = 0;
-    //     let item: Item;
+            req.flush({ errorMessage: 'Uh oh!' }, { status: 500, statusText: 'Server Error' });
+        }));
 
-    //     // act
-    //     item = this.service.getById(itemId);
+    it('add - should return null if name is undefined',
+        inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+            let name = undefined;
 
-    //     // assert
-    //     expect(item).toBeNull();
-    // });
+            expect(service.add(name)).toBeNull();
+        }));
 
-    // it('get item by id if exist should return item', () => {
-    //     // arrange
-    //     let name = 'Test 1';
-    //     this.service.add(name);
-    //     let item: Item;
+    it('add - should return null if name is null',
+        inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+            let name = null;
 
-    //     // act
-    //     item = this.service.getById(0);
+            expect(service.add(name)).toBeNull();
+        }));
 
-    //     // assert
-    //     expect(item).toBeDefined();
-    //     expect(item.id).toBe(0);
-    // });
+    it('add - should item when created - 201 response code',
+        inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+            let item: Item = {
+                name: "Test",
+                id: 0,
+                isDone: false,
+                created: new Date()
+            };
 
-    // // add
-    // it('add undefined should return false', () => {
-    //     // arrange
-    //     let newItem: string = undefined;
-    //     let addItemResult: boolean;
-    //     let expectedItemsCount = this.service.get().length;
-    //     let actualItemsCount: number;        
+            service.add(item.name).subscribe(data => {
+                expect(data.name).toBe(item.name);
+                expect(data.isDone).toBeFalsy();
+            });
 
-    //     // act
-    //     addItemResult = this.service.add(newItem);
-    //     actualItemsCount = this.service.get().length;
+            const req = httpMock.expectOne('/api/todos');
+            expect(req.request.method).toEqual('POST');
 
-    //     // assert
-    //     expect(addItemResult).toBeFalsy();
-    //     expect(actualItemsCount).toBe(expectedItemsCount);
-    // });
+            req.flush(item);
 
-    // it('add null item should return false', () => {
-    //      // arrange
-    //      let newItem: string = null;
-    //      let addItemResult: boolean;
-    //      let expectedItemsCount = this.service.get().length;
-    //      let actualItemsCount: number;
+        }));
 
-    //      // act
-    //      addItemResult = this.service.add(newItem);
-    //      actualItemsCount = this.service.get().length;
+    it('add -  should throw with an error message when API returns an error',
+        inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
+            service.add(" ")
+                .catch(actualError => {
+                    expect(Observable.of(actualError)).toBeTruthy();
+                    expect(actualError).toBeTruthy();
+                    return Observable.of(actualError);
+                })
+                .subscribe();
 
-    //      // assert
-    //      expect(addItemResult).toBeFalsy();
-    //      expect(actualItemsCount).toBe(expectedItemsCount);
-    // });
+            const req = httpMock.expectOne('/api/todos');
+            expect(req.request.method).toEqual('POST');
 
-    // it('add valid item should return true', () => {
-    //      // arrange
-    //      let newItem: string = 'Test 1'
-    //      let addItemResult: boolean;
-    //      let expectedItemsCount = this.service.get().length;
-    //      let actualItemsCount: number;
-
-    //      // act
-    //      addItemResult = this.service.add(newItem);
-    //      actualItemsCount = this.service.get().length;
-
-    //      // assert
-    //      expect(addItemResult).toBeTruthy();
-    //      expect(actualItemsCount).toBeGreaterThan(expectedItemsCount);
-    // });
-
-    // // remove
-    // it('remove undefined item should return false', () => {
-    //     // arrange
-    //     let itemToRemove: Item = undefined;
-    //     let operationResult: boolean;
-    //     this.service.add('Item to delete');
-    //     let expectedItemsCount = this.service.get().length;
-    //     let actualItemsCount: number;
-
-    //     // act
-    //     operationResult = this.service.remove(itemToRemove);
-    //     actualItemsCount = this.service.get().length;
-
-    //     // assert
-    //     expect(operationResult).toBeFalsy();
-    //     expect(actualItemsCount).toBe(expectedItemsCount);
-    // });
-
-    // it('remove null item should return false', () => {
-    //     // arrange
-    //     let itemToRemove: Item = null;
-    //     let operationResult: boolean;
-    //     this.service.add('Item to delete');
-    //     let expectedItemsCount = this.service.get().length;
-    //     let actualItemsCount: number;
-
-    //     // act
-    //     operationResult = this.service.remove(itemToRemove);
-    //     actualItemsCount = this.service.get().length;
-
-    //     // assert
-    //     expect(operationResult).toBeFalsy();
-    //     expect(actualItemsCount).toBe(expectedItemsCount);
-    // });
-
-    // it('remove item that is not in collection should return false', () => {
-    //     // arrange
-    //     this.service.add('Item1');
-    //     let expectedItemsCount = this.service.get().length;
-    //     let actualItemsCount: number;
-    //     let operationResult: boolean;
-
-    //     // act
-    //     operationResult = this.service.remove({id: 5, name: 'false'});
-    //     actualItemsCount = this.service.get().length;
-
-    //     // assert
-    //     expect(operationResult).toBeFalsy();
-    //     expect(actualItemsCount).toBe(expectedItemsCount);
-    // });
-
-    // it('remove item that is in collection should return true', () => {
-    //     // arrange
-    //     this.service.add('Name 1');
-    //     let startItemsCount = this.service.get().length;
-    //     let operationResult: boolean;
-    //     let actualItemsCount: number;
-
-    //     // act
-    //     let item = this.service.getById(0);
-    //     operationResult = this.service.remove(item);
-    //     actualItemsCount = this.service.get().length;
-
-    //     // assert
-    //     expect(operationResult).toBeTruthy();
-    //     expect(actualItemsCount).toBeLessThan(startItemsCount);
-    // });
-
-    // // edit
-    // it('mark as done if item not exist should return false', () => {
-    //     // arrange
-    //     let itemId = 0;
-    //     let actualResult: boolean;
-
-    //     // act
-    //     this.actualResult = this.service.markAsDone(itemId);
-
-    //     // assert
-    //     expect(actualResult).toBeFalsy();
-    // });
-
-    // it('mark as done if item exist should return true', () => {
-    //     // arrange
-    //     let itemId = 0;
-    //     let actualResult: boolean;
-    //     this.service.add('Name 1');
-
-    //     // act
-    //     actualResult = this.service.markAsDone(itemId);
-    //     let item = this.service.getById(itemId);
-
-    //     // assert
-    //     expect(actualResult).toBeTruthy();
-    //     expect(item.isDone).toBeTruthy();
-    // });
-
-    // it('edit if item do not exist should return false', () => {
-    //     // arrange
-    //     this.service.add('Name 1');
-    //     let actualResult: boolean;
-
-    //     // act
-    //     let item = this.service.getById(0);
-    //     actualResult = this.service.edit({id: 1, name: 'Name 2'});
-
-    //     // assert
-    //     expect(actualResult).toBeFalsy();
-    //     expect(item.name).toBe('Name 1');
-    // });
-
-    // it('edit if item do exist should update and return true', () => {
-    //     // arrange
-    //     this.service.add('Name 1');
-    //     let actualResult: boolean;
-
-    //     // act
-    //     let item = this.service.getById(0);
-    //     item.name = "Name 2";
-    //     actualResult = this.service.edit(item);
-
-    //     // assert
-    //     expect(actualResult).toBeTruthy();
-    //     expect(item.name).toBe('Name 2');
-    // });
-
-    // it('clear should remove all items', () => {
-    //     // arrange
-    //     this.service.add('Name 1');
-    //     let expectedCount = 0;
-
-    //     // act
-    //     let actualCount = this.service.get().length;
-    //     this.service.clear();
-    //     actualCount = this.service.get().length;
-
-    //     // assert
-    //     expect(actualCount).toBe(expectedCount);
-    // })
+            req.flush({ errorMessage: 'Uh oh!' }, { status: 500, statusText: 'Server Error' });
+        }));
 });
