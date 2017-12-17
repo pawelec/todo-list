@@ -74,7 +74,7 @@ describe('Todos Service', () => {
         inject([HttpClient, HttpTestingController], (http: HttpClient, httpMock: HttpTestingController) => {
             let number: 0;
 
-            service.markAsDone(number).subscribe(data => expect(data).toBe('false'));
+            service.markAsDone(number).subscribe(data => expect(data.toString()).toBe('false'));
 
             const req = httpMock.expectOne('/api/todos/' + number);
             expect(req.request.method).toEqual('PUT');
