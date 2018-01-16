@@ -1,4 +1,4 @@
-<div class="list-group">
+<div id='todoList' class="list-group">
     <div (click)="click(thingToDo)" class="list-group-item list-group-item-action flex-column align-items-start" [class.item-done]="thingToDo.isDone"
         data-toggle="tooltip" data-placement="top" title="Click to mark as done"
         *ngFor="let thingToDo of thingsToDo">

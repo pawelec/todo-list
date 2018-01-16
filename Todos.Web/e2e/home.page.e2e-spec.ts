@@ -29,4 +29,32 @@ describe('Todos app - home page', function () {
   it('should have a footer link description', function () {
     expect(page.getFooterDescription()).toBe('© 2017 Paweł Pawelec');
   });
+
+  it('should have input element with placeholder', function () {
+    expect(page.getTextInput().getAttribute('placeholder')).toBe('type thing to do and press enter to add');
+  })
+
+  it('should add new todo', function () {
+    // Arrange
+    let expectedTodosCount = 0;
+    let actualTodosCount = 0;
+
+    // Act
+    page.getTodoList().then(function(count) {
+      expectedTodosCount = count + 1;
+    });
+
+    var input = page.getTextInput();
+    input.sendKeys('todo one');
+
+    var form = page.getForm();
+    form.submit();
+
+    page.getTodoList().then(function(count) {
+      actualTodosCount = count;
+    });
+
+    // Assert
+    expect(actualTodosCount).toBe(expectedTodosCount);
+  });
 });

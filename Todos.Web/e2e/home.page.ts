@@ -24,4 +24,17 @@ export class HomePage {
   getFooterDescription() {
     return element(by.tagName('a')).getText();
   }
+
+  getForm() {
+    return element(by.id('todoForm'));
+  }
+
+  getTextInput() {
+    return element(by.id('todoInputElement'));
+  }
+
+  getTodoList() {
+    // return element(by.id('todoList')).all(by.tagName('h5'));
+    return element(by.id('todoList')).all(by.tagName('h5')).count();
+  }
 }
