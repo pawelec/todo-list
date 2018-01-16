@@ -57,4 +57,29 @@ describe('Todos app - home page', function () {
     // Assert
     expect(actualTodosCount).toBe(expectedTodosCount);
   });
+
+  it('should mark todo as done after click', function() {
+    // Arrange
+    let expectedTodosCount = 0;
+    let actualTodosCount = 0;
+
+    // Act
+    page.getDoneTodos().then(function(count) {
+      expectedTodosCount = count + 1;
+    });
+
+    var input = page.getTextInput();
+    input.sendKeys('todo one');
+
+    var form = page.getForm();
+    form.submit();
+
+    // div is not clickable - manual brower mouse click action
+    browser.actions().mouseMove(page.getItemToClick()).click();
+    page.getDoneTodos().then(function(count) {
+      actualTodosCount = count;
+    });
+
+    (expect(actualTodosCount)).toBe(expectedTodosCount);
+  });
 });

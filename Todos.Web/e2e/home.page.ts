@@ -34,7 +34,14 @@ export class HomePage {
   }
 
   getTodoList() {
-    // return element(by.id('todoList')).all(by.tagName('h5'));
     return element(by.id('todoList')).all(by.tagName('h5')).count();
+  }
+
+  getDoneTodos() {
+    return element(by.id('todoList')).all(by.css('div.item-done')).count();
+  }
+
+  getItemToClick() {
+    return element(by.id('todoList')).all(by.css('div.list-group-item-action')).last();
   }
 }
