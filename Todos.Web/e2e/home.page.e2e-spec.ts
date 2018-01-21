@@ -6,6 +6,7 @@ describe('Todos app - home page', function () {
   let page;
 
   beforeAll(() => {
+    browser.manage().window().maximize();
     page = new HomePage();
     page.navigateTo();
   });
@@ -75,7 +76,8 @@ describe('Todos app - home page', function () {
     form.submit();
 
     // div is not clickable - manual brower mouse click action
-    browser.actions().mouseMove(page.getItemToClick()).click();
+    // browser.actions().mouseMove(page.getItemToClick()).click();
+    page.getItemToClick().click();
     page.getDoneTodos().then(function(count) {
       actualTodosCount = count;
     });
