@@ -28,14 +28,18 @@ $ npm install
 # Build client side app
 $ ng build
 
-# Run the app
+# Run the api server
 $ dotnet run
+
+# Run the client app - Check proxy config port with your server app port
+$ ng serve --proxy-config proxy.config.json 
 ```
 
 ### Tests
 
 Type `dotnet test` inside `todos` folder to run backend tests.
 Type `ng test` inside `Todos.Web` folder to run frontend tests.
+Type `ng e2e --proxy-config proxy.config.json` inside `Todos.Web` folder to run e2e tests.
 
 ## License
 
